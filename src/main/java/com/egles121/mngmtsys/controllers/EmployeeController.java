@@ -2,50 +2,56 @@ package com.egles121.mngmtsys.controllers;
 
 import com.egles121.mngmtsys.dto.EmployeeDto;
 import com.egles121.mngmtsys.services.EmployeeService;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("api/v1/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping("/all")
-    @ApiOperation("Fetch all employees in the system")
-    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
-        return new ResponseEntity<>(employeeService.findAllEmployees(), HttpStatus.OK);
+    public ModelAndView getAllEmployees() {
+        ModelAndView modelAndView = new ModelAndView("list-employees");
+        Object object = employeeService.findAllEmployees();
+        modelAndView.addObject("employees", object);
+        return modelAndView;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(employeeService.findEmployeeById(id), HttpStatus.OK);
+    @GetMapping("/add/form")
+    public ModelAndView addEmployeeForm() {
+        ModelAndView modelAndView = new ModelAndView("add-employee-form");
+        EmployeeDto employeeDto = new EmployeeDto();
+        boolean isAddForm = true;
+        modelAndView.addObject("employee", employeeDto);
+        modelAndView.addObject("isAddForm", isAddForm);
+        return modelAndView;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<EmployeeDto> addNewEmployee(@RequestBody EmployeeDto employeeDto) {
-        return new ResponseEntity<>(employeeService.createEmployee(employeeDto), HttpStatus.CREATED);
+    @PostMapping("/post")
+    public String saveEmployee(@ModelAttribute EmployeeDto employeeDto) {
+        employeeService.createEmployee(employeeDto);
+        return "redirect:/api/v1/employee/all";
     }
 
-    @PutMapping("/{id}/update")
-    public ResponseEntity<EmployeeDto> updateExistingEmployee(@PathVariable("id") Long id, @RequestBody EmployeeDto employeeDto) {
-        return new ResponseEntity<>(employeeService.updateEmployeeDetails(id, employeeDto), HttpStatus.CREATED);
+    @GetMapping("/update/form")
+    public ModelAndView showUpdateForm(@RequestParam Long employeeId) {
+        ModelAndView modelAndView = new ModelAndView("add-employee-form");
+        EmployeeDto employeeDto = employeeService.findEmployeeById(employeeId);
+        modelAndView.addObject("employee", employeeDto);
+        return modelAndView;
     }
 
-    @DeleteMapping("/{id}/delete")
-    public void deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
+    @GetMapping("/delete")
+    public String deleteEmployee(@RequestParam Long employeeId) {
+        employeeService.deleteEmployee(employeeId);
+        return "redirect:/api/v1/employee/all";
     }
 }

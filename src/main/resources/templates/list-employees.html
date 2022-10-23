@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>List of Employees</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h2>List of Employees</h2>
+        <hr/>
+        <a th:href="@{/api/v1/employee/add/form}" class="btn btn-primary mb-3">Add employee</a>
+        <table class="table table-bordered table-striped" id="employee-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Job Title</th>
+                <th>Department</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="employee: ${employees}">
+                <td th:text="${employee.firstName}"></td>
+                <td th:text="${employee.lastName}"></td>
+                <td th:text="${employee.jobTitle}"></td>
+                <td th:text="${employee.departmentName}"></td>
+                <td th:text="${employee.startDate}"></td>
+                <td th:text="${employee.endDate}"></td>
+                <td>
+                    <a th:href="@{/api/v1/employee/update/form(employeeId=${employee.id})}" class="btn btn-info">Update</a>
+                    <a th:href="@{/api/v1/employee/delete(employeeId=${employee.id})}" class="btn btn-danger ml-2">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#employee-table").DataTable({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets':[-1]
+            }]
+        });
+    })
+</script>
+</html>
