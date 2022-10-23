@@ -18,6 +18,7 @@ public class MngmtsysApplication {
 
         ConfigurableEnvironment configurableEnvironment = run.getEnvironment();
         String serverPort = configurableEnvironment.getProperty("local.server.port");
+        log.info("Management app: http://localhost:{}{}", serverPort, configurableEnvironment.getProperty("springdoc.management-app.path"));
         log.info("Swagger: http://localhost:{}{}", serverPort, configurableEnvironment.getProperty("springdoc.swagger-ui.path"));
     }
 
