@@ -15,4 +15,4 @@ VALUES ('Taylor', 'Jackson', 'Logistics Manager', '2', '2022-11-05', null);
 INSERT INTO employee(first_name, last_name, job_title, department_id, start_date, end_date)
 VALUES ('Michael', 'Scott', 'Regional Sales Manager', '4', '2021-05-03', null);
 
-INSERT INTO hibernate_sequence (next_val) VALUES (0);
+INSERT INTO hibernate_sequence (next_val) VALUES (5);
