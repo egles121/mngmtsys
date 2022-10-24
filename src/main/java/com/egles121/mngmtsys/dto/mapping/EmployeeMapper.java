@@ -50,7 +50,7 @@ public class EmployeeMapper {
         employee.setLastName(employeeDto.getLastName());
         employee.setJobTitle(employeeDto.getJobTitle());
         employee.setDepartment(departmentRepository.findByName(employeeDto.getDepartmentName()));
-        employee.setStartDate(Instant.now());
+        employee.setStartDate(employeeDto.getStartDate() == null ? Instant.now() : employeeDto.getStartDate());
         if (employeeDto.isTerminated() && employee.getEndDate() == null) {
             employee.setEndDate(Instant.now());
         }

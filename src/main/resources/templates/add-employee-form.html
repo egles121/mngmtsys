@@ -29,6 +29,7 @@
                 </div>
                 <button class="btn btn-primary" type="submit">Save</button>
                 <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{startDate}"/>
             </form>
             <hr/>
             <a th:href="@{/api/v1/employee/all}">Back to Employee list</a>
