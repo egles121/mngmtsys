@@ -12,6 +12,9 @@ import java.time.Instant;
 
 import static com.egles121.mngmtsys.constants.Constants.DEPARTMENT_EMPTY;
 import static com.egles121.mngmtsys.constants.Constants.DEPARTMENT_NOT_FOUND;
+import static com.egles121.mngmtsys.constants.Constants.JOB_TITLE_EMPTY;
+import static com.egles121.mngmtsys.constants.Constants.LAST_NAME_EMPTY;
+import static com.egles121.mngmtsys.constants.Constants.NAME_EMPTY;
 
 @Component
 public class EmployeeMapper {
@@ -38,6 +41,18 @@ public class EmployeeMapper {
         if (StringUtils.isEmpty(employeeDto.getDepartmentName())) {
             throw new ManagementAppException(DEPARTMENT_EMPTY);
         }
+        if (StringUtils.isEmpty(employeeDto.getFirstName())) {
+            throw new ManagementAppException(NAME_EMPTY);
+        }
+
+        if (StringUtils.isEmpty(employeeDto.getLastName())) {
+            throw new ManagementAppException(LAST_NAME_EMPTY);
+        }
+
+        if (StringUtils.isEmpty(employeeDto.getJobTitle())) {
+            throw new ManagementAppException(JOB_TITLE_EMPTY);
+        }
+
         if (departmentRepository.findByName(employeeDto.getDepartmentName()) == null) {
             throw new ManagementAppException(DEPARTMENT_NOT_FOUND);
         }
