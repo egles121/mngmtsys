@@ -30,7 +30,7 @@ public class TestController {
         return new ResponseEntity<>(employeeService.findAllEmployees(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/find")
+    @GetMapping("/find/{id}")
     public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(employeeService.findEmployeeById(id), HttpStatus.OK);
     }
@@ -40,12 +40,12 @@ public class TestController {
         return new ResponseEntity<>(employeeService.createEmployee(employeeDto), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/update/{id}")
     public ResponseEntity<EmployeeDto> updateExistingEmployee(@PathVariable("id") Long id, @RequestBody EmployeeDto employeeDto) {
         return new ResponseEntity<>(employeeService.updateEmployeeDetails(id, employeeDto), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/delete/{id}")
     public void deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
     }
