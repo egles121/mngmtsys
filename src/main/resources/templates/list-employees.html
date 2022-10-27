@@ -30,8 +30,8 @@
                 <td th:text="${employee.lastName}"></td>
                 <td th:text="${employee.jobTitle}"></td>
                 <td th:text="${employee.departmentName}"></td>
-                <td th:text="${employee.startDate}"></td>
-                <td th:text="${employee.endDate}"></td>
+                <td th:text="${#temporals.format(employee.startDate, 'yyyy-MM-dd')}"></td>
+                <td th:text="${#temporals.format(employee.endDate, 'yyyy-MM-dd')}"></td>
                 <td>
                     <a th:href="@{/api/v1/employee/update/form(employeeId=${employee.id})}" class="btn btn-info">Update</a>
                     <a th:href="@{/api/v1/employee/delete(employeeId=${employee.id})}" class="btn btn-danger ml-2">Delete</a>
