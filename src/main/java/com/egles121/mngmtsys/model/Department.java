@@ -23,7 +23,7 @@ import java.util.List;
 @Table(name = "department")
 public class Department implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
     private String name;

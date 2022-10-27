@@ -22,7 +22,3 @@ CREATE TABLE employee (
   CONSTRAINT FK_employee_department FOREIGN KEY (department_id)
       REFERENCES department(id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE hibernate_sequence (
-  next_val bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
